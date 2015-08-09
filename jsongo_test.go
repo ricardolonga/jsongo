@@ -4,7 +4,7 @@ import (
 	"testing"
 	"encoding/json"
 	"reflect"
-	"gitlab.neoway.com.br/severino/logger"
+	"log"
 )
 
 func Test_create_empty_object(t *testing.T) {
@@ -38,12 +38,12 @@ func bytes2json(data []byte) (map[string]interface{}) {
 }
 
 func check(t *testing.T, expect, result interface{}) {
-	logger.Info("Expect: %s", expect)
-	logger.Info("Result: %s", result)
+	log.Printf("Expect: %s\n", expect)
+	log.Printf("Result: %s\n", result)
 
 	if !reflect.DeepEqual(expect, result) {
 		t.Errorf("\n\nExpect: %s\nResult: %s", expect, result)
 	}
 
-	logger.Info("")
+	log.Printf("")
 }
