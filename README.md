@@ -37,6 +37,8 @@ json := j.Object().Put("name", "Ricardo Longa").
 				   Put("owner", true).
 				   Put("skills", j.Array().Put("Golang").
 									       Put("Android"))
+
+log.Print(json.Indent())
 ```
 
 License
