@@ -3,7 +3,8 @@ jsongo
 
 **Fluent API** to make it easier **to create Json** objects.
 
-[![Build Status](https://travis-ci.org/ricardolonga/jsongo.svg)](https://travis-ci.org/ricardolonga/jsongo)[![](http://gocover.io/_badge/github.com/ricardolonga/jsongo)](http://gocover.io/github.com/ricardolonga/jsongo)
+[![Build Status](https://travis-ci.org/ricardolonga/jsongo.svg)](https://travis-ci.org/ricardolonga/jsongo) 
+[![](http://gocover.io/_badge/github.com/ricardolonga/jsongo)](http://gocover.io/github.com/ricardolonga/jsongo)
 
 Install
 -------------
@@ -27,11 +28,15 @@ To create this:
 ```  
 Do this:  
 ```
-json := Object().Put("name", "Ricardo Longa").
-				 Put("idade", 28).
-				 Put("owner", true).
-				 Put("skills", Array().Put("Golang").
-									   Put("Android"))
+import (
+    j "github.com/ricardolonga/jsongo"
+)
+
+json := j.Object().Put("name", "Ricardo Longa").
+				   Put("idade", 28).
+				   Put("owner", true).
+				   Put("skills", j.Array().Put("Golang").
+									       Put("Android"))
 ```
 
 License
