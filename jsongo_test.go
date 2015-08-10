@@ -23,8 +23,8 @@ func Test_create_populated_object(t *testing.T) {
 
 func Test_create_two_populated_objects_into_array(t *testing.T) {
 	expect := bytes2json([]byte(`{"funcionarios":[{"name":"Ricardo Longa","idade":28,"skills":["Golang","Android"]},{"name":"Hery Victor","idade":32,"skills":["Golang","Java"]}]}`))
-	result := Object().Put("funcionarios", Array().Put(Object().Put("name", "Ricardo Longa").Put("idade", 28).Put("skills", Array().Put("Golang").Put("Android"))).Put(Object().
-																Put("name", "Hery Victor").Put("idade", 32).Put("skills", Array().Put("Golang").Put("Java"))))
+	result := Object().Put("funcionarios", Array().Put(Object().Put("name", "Ricardo Longa").Put("idade", 28).Put("skills", Array().Put("Golang").Put("Android"))).
+												   Put(Object().Put("name", "Hery Victor").Put("idade", 32).Put("skills", Array().Put("Golang").Put("Java"))))
 
 	check(t, struct2json(expect), struct2json(result))
 }
