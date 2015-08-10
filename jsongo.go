@@ -1,4 +1,5 @@
 package jsongo
+import "encoding/json"
 
 type O map[string]interface{}
 
@@ -13,6 +14,11 @@ func (this O) Put(key string, value interface{}) O {
 	return this
 }
 
+func (this O) Indent() string {
+	indent, _ := json.MarshalIndent(this, "", "   ")
+	return string(indent)
+}
+
 func Array() A {
 	return A{}
 }
@@ -20,4 +26,9 @@ func Array() A {
 func (this A) Put(value interface{}) A {
 	this = append(this, value)
 	return this
+}
+
+func (this A) Indent() string {
+	indent, _ := json.MarshalIndent(this, "", "   ")
+	return string(indent)
 }
