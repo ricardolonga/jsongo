@@ -1,4 +1,4 @@
-jsongo
+Jsongo
 ===================
 
 **Fluent API** to make it easier **to create Json** objects.
@@ -40,6 +40,11 @@ json := j.Object().Put("name", "Ricardo Longa").
 
 log.Print(json.Indent())
 ```
+
+Copyright
+-------------
+Copyright (c) 2015 Ricardo Longa.
+Jsongo is licensed under the Apache License Version 2.0. See the LICENSE file for more information.
 
 License
 -------------
