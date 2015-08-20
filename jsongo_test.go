@@ -21,6 +21,19 @@ func Test_create_populated_object(t *testing.T) {
 	check(t, struct2json(expect), struct2json(result))
 }
 
+func Test_create_populated_objects_and_remove_attr(t *testing.T) {
+	expect := bytes2json([]byte(`{"name":"Ricardo Longa","idade":28,"skills":["Golang","Android"]}`))
+	result := Object().Put("name", "Ricardo Longa").Put("idade", 28).Put("skills", Array().Put("Golang").Put("Android"))
+
+	check(t, struct2json(expect), struct2json(result))
+
+	expectAfterRemove := bytes2json([]byte(`{"name":"Ricardo Longa","idade":28}`))
+
+	result.Remove("skills")
+
+	check(t, struct2json(expectAfterRemove), struct2json(result))
+}
+
 func Test_create_two_populated_objects_into_array(t *testing.T) {
 	expect := bytes2json([]byte(`{"funcionarios":[{"name":"Ricardo Longa","idade":28,"skills":["Golang","Android"]},{"name":"Hery Victor","idade":32,"skills":["Golang","Java"]}]}`))
 	result := Object().Put("funcionarios", Array().Put(Object().Put("name", "Ricardo Longa").Put("idade", 28).Put("skills", Array().Put("Golang").Put("Android"))).

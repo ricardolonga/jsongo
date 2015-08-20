@@ -40,12 +40,16 @@ json := j.Object().Put("name", "Ricardo Longa").
 
 log.Print(json.Indent())
 ```
+To remove a field of the object:
+```
+json.Remove("skills")
+```
+
+License
+-------------
+Apache License Version 2.0, January 2004.
 
 Copyright
 -------------
 Copyright (c) 2015 Ricardo Longa.
 Jsongo is licensed under the Apache License Version 2.0. See the LICENSE file for more information.
-
-License
--------------
-Apache License Version 2.0, January 2004

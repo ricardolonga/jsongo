@@ -15,6 +15,11 @@ func (this O) Put(key string, value interface{}) O {
 	return this
 }
 
+func (this O) Remove(key string) O {
+	delete(this, key)
+	return this
+}
+
 func (this O) Indent() string {
 	indent, _ := json.MarshalIndent(this, "", "   ")
 	return string(indent)
