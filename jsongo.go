@@ -21,8 +21,7 @@ func (this O) Remove(key string) O {
 }
 
 func (this O) Indent() string {
-	indent, _ := json.MarshalIndent(this, "", "   ")
-	return string(indent)
+	return indent(this)
 }
 
 func Array() *A {
@@ -35,6 +34,14 @@ func (this *A) Put(value interface{}) *A {
 }
 
 func (this *A) Indent() string {
-	indent, _ := json.MarshalIndent(this, "", "   ")
+	return indent(this)
+}
+
+func (this *A) Size() int {
+	return len(*this)
+}
+
+func indent(v interface{}) string {
+	indent, _ := json.MarshalIndent(v, "", "   ")
 	return string(indent)
 }

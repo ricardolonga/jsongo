@@ -44,6 +44,14 @@ To remove a field of the object:
 ```
 json.Remove("skills")
 ```
+Array size:
+```
+array := j.Array().Put("Android").
+                   Put("Golang").
+                   Put("Java")
+                   
+array.Size() // Result is 3.
+```
 
 Copyright
 -------------

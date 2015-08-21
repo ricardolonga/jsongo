@@ -42,6 +42,12 @@ func Test_create_two_populated_objects_into_array(t *testing.T) {
 	check(t, struct2json(expect), struct2json(result))
 }
 
+func Test_array_size_must_be_3(t *testing.T) {
+	result := Array().Put("Golang").Put("Android").Put("Java")
+
+	check(t, 3, result.Size())
+}
+
 func bytes2json(data []byte) map[string]interface{} {
 	var jsonData interface{}
 
