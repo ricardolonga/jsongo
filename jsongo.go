@@ -24,6 +24,10 @@ func (this O) Indent() string {
 	return indent(this)
 }
 
+func (this O) String() string {
+	return toString(this)
+}
+
 func Array() *A {
 	return &A{}
 }
@@ -37,11 +41,20 @@ func (this *A) Indent() string {
 	return indent(this)
 }
 
+func (this *A) String() string {
+	return toString(this)
+}
+
 func (this *A) Size() int {
 	return len(*this)
 }
 
 func indent(v interface{}) string {
 	indent, _ := json.MarshalIndent(v, "", "   ")
+	return string(indent)
+}
+
+func toString(v interface{}) string {
+	indent, _ := json.Marshal(v)
 	return string(indent)
 }

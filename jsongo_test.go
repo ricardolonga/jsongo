@@ -64,6 +64,15 @@ func Test_object_indent(t *testing.T) {
 	}
 }
 
+func Test_object_string(t *testing.T) {
+	expect := []byte(`{"skills":["Golang","Android","Java"]}`)
+	result := Object().Put("skills", Array().Put("Golang").Put("Android").Put("Java"))
+
+	if !bytes.Equal(expect, bytes.NewBufferString(result.String()).Bytes()) {
+		t.Errorf("\n\nExpect: %s\nResult: %s", expect, struct2json(result.String()))
+	}
+}
+
 func Test_array_indent(t *testing.T) {
 	expect := []byte(`[
    "Golang",
