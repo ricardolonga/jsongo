@@ -38,7 +38,8 @@ json := j.Object().Put("name", "Ricardo Longa").
 				   Put("skills", j.Array().Put("Golang").
 									       Put("Android"))
 
-log.Print(json.Indent())
+log.Println(json.Indent())
+log.Println(json.String())
 ```
 To remove a field of the object:
 ```
