@@ -6,6 +6,7 @@ import (
 	"reflect"
 	"log"
 	"bytes"
+	"strings"
 )
 
 func Test_create_empty_object(t *testing.T) {
@@ -49,6 +50,15 @@ func Test_array_size_must_be_3(t *testing.T) {
 	check(t, 3, result.Size())
 }
 
+func Test_object_get_func(t *testing.T) {
+	expect := "Ricardo Longa"
+	result := Object().Put("name", "Ricardo Longa")
+
+	if !strings.EqualFold(expect, result.Get("name").(string)) {
+		t.Errorf("\n\nExpect: %s\nResult: %s", expect, result.Get("name"))
+	}
+}
+
 func Test_object_indent(t *testing.T) {
 	expect := []byte(`{
    "skills": [
@@ -83,6 +93,15 @@ func Test_array_indent(t *testing.T) {
 
 	if !bytes.Equal(expect, bytes.NewBufferString(result.Indent()).Bytes()) {
 		t.Errorf("\n\nExpect: %s\nResult: %s", expect, result)
+	}
+}
+
+func Test_array_string(t *testing.T) {
+	expect := []byte(`["Golang","Android","Java"]`)
+	result := Array().Put("Golang").Put("Android").Put("Java")
+
+	if !bytes.Equal(expect, bytes.NewBufferString(result.String()).Bytes()) {
+		t.Errorf("\n\nExpect: %s\nResult: %s", expect, struct2json(result.String()))
 	}
 }
 

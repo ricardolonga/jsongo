@@ -15,6 +15,10 @@ func (this O) Put(key string, value interface{}) O {
 	return this
 }
 
+func (this O) Get(key string) interface{} {
+	return this[key]
+}
+
 func (this O) Remove(key string) O {
 	delete(this, key)
 	return this

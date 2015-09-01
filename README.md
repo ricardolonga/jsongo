@@ -40,11 +40,23 @@ json := j.Object().Put("name", "Ricardo Longa").
 
 log.Print(json.Indent())
 ```
-To remove a field of the object:
+##### Convert object/array to indented String:
+```
+json.Indent()
+```
+##### Convert object/array to String:
+```
+json.String()
+```
+##### To remove a field of the object:
 ```
 json.Remove("skills")
 ```
-Array size:
+##### To get a field of the object:
+```
+json.Get("skills") // Return is interface{}.
+```
+##### To get Array size:
 ```
 array := j.Array().Put("Android").
                    Put("Golang").
