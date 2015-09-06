@@ -36,20 +36,6 @@ func Test_create_populated_objects_and_remove_attr(t *testing.T) {
 	check(t, struct2json(expectAfterRemove), struct2json(result))
 }
 
-func Test_create_two_populated_objects_into_array(t *testing.T) {
-	expect := bytes2json([]byte(`{"funcionarios":[{"name":"Ricardo Longa","idade":28,"skills":["Golang","Android"]},{"name":"Hery Victor","idade":32,"skills":["Golang","Java"]}]}`))
-	result := Object().Put("funcionarios", Array().Put(Object().Put("name", "Ricardo Longa").Put("idade", 28).Put("skills", Array().Put("Golang").Put("Android"))).
-												   Put(Object().Put("name", "Hery Victor").Put("idade", 32).Put("skills", Array().Put("Golang").Put("Java"))))
-
-	check(t, struct2json(expect), struct2json(result))
-}
-
-func Test_array_size_must_be_3(t *testing.T) {
-	result := Array().Put("Golang").Put("Android").Put("Java")
-
-	check(t, 3, result.Size())
-}
-
 func Test_object_get_func(t *testing.T) {
 	expect := "Ricardo Longa"
 	result := Object().Put("name", "Ricardo Longa")
@@ -77,28 +63,6 @@ func Test_object_indent(t *testing.T) {
 func Test_object_string(t *testing.T) {
 	expect := []byte(`{"skills":["Golang","Android","Java"]}`)
 	result := Object().Put("skills", Array().Put("Golang").Put("Android").Put("Java"))
-
-	if !bytes.Equal(expect, bytes.NewBufferString(result.String()).Bytes()) {
-		t.Errorf("\n\nExpect: %s\nResult: %s", expect, struct2json(result.String()))
-	}
-}
-
-func Test_array_indent(t *testing.T) {
-	expect := []byte(`[
-   "Golang",
-   "Android",
-   "Java"
-]`)
-	result := Array().Put("Golang").Put("Android").Put("Java")
-
-	if !bytes.Equal(expect, bytes.NewBufferString(result.Indent()).Bytes()) {
-		t.Errorf("\n\nExpect: %s\nResult: %s", expect, result)
-	}
-}
-
-func Test_array_string(t *testing.T) {
-	expect := []byte(`["Golang","Android","Java"]`)
-	result := Array().Put("Golang").Put("Android").Put("Java")
 
 	if !bytes.Equal(expect, bytes.NewBufferString(result.String()).Bytes()) {
 		t.Errorf("\n\nExpect: %s\nResult: %s", expect, struct2json(result.String()))

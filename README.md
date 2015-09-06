@@ -57,6 +57,13 @@ json.Remove("skills")
 ```
 json.Get("skills") // Return is interface{}.
 ```
+##### To range over a array:
+```
+results := Array().Put("Golang").Put("Android").Put("Java")
+
+for i, result := range results.Array() {
+}
+```
 ##### To get Array size:
 ```
 array := j.Array().Put("Android").

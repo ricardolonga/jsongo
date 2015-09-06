@@ -53,6 +53,10 @@ func (this *A) Size() int {
 	return len(*this)
 }
 
+func (this *A) Array() []interface{} {
+	return *this
+}
+
 func indent(v interface{}) string {
 	indent, _ := json.MarshalIndent(v, "", "   ")
 	return string(indent)
