@@ -6,30 +6,30 @@ import (
 	"fmt"
 )
 
-type array []interface{}
+type A []interface{}
 
-func Array() *array {
-	return &array{}
+func Array() *A {
+	return &A{}
 }
 
-func (this *array) Put(value interface{}) *array {
+func (this *A) Put(value interface{}) *A {
 	*this = append(*this, value)
 	return this
 }
 
-func (this *array) Indent() string {
+func (this *A) Indent() string {
 	return indent(this)
 }
 
-func (this *array) String() string {
+func (this *A) String() string {
 	return _string(this)
 }
 
-func (this *array) Size() int {
+func (this *A) Size() int {
 	return len(*this)
 }
 
-func (this *array) OfString() (values []string, err error) {
+func (this *A) OfString() (values []string, err error) {
 	for _, value := range *this {
 		if reflect.TypeOf(value).String() != "string" {
 			return nil, errors.New(fmt.Sprintf("Value is %s, not a string.", reflect.TypeOf(value)))

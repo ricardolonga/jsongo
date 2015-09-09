@@ -6,50 +6,50 @@ import (
 	"fmt"
 )
 
-type object map[string]interface{}
+type O map[string]interface{}
 
-func Object() object {
-	return object{}
+func Object() O {
+	return O{}
 }
 
-func (this object) Put(key string, value interface{}) object {
+func (this O) Put(key string, value interface{}) O {
 	this[key] = value
 	return this
 }
 
-func (this object) Get(key string) interface{} {
+func (this O) Get(key string) interface{} {
 	return this[key]
 }
 
-func (this object) GetObject(key string) (value object, err error) {
+func (this O) GetObject(key string) (value O, err error) {
 	var ok bool
 
-	if value, ok = this[key].(object); !ok {
+	if value, ok = this[key].(O); !ok {
 		return nil, errors.New(fmt.Sprintf("Casting error. Interface is %s, not jsongo.object", reflect.TypeOf(this[key])))
 	}
 
 	return value, nil
 }
 
-func (this object) GetArray(key string) (value *array, err error) {
+func (this O) GetArray(key string) (value *A, err error) {
 	var ok bool
 
-	if value, ok = this[key].(*array); !ok {
+	if value, ok = this[key].(*A); !ok {
 		return nil, errors.New(fmt.Sprintf("Casting error. Interface is %s, not jsongo.array", reflect.TypeOf(this[key])))
 	}
 
 	return value, nil
 }
 
-func (this object) Remove(key string) object {
+func (this O) Remove(key string) O {
 	delete(this, key)
 	return this
 }
 
-func (this object) Indent() string {
+func (this O) Indent() string {
 	return indent(this)
 }
 
-func (this object) String() string {
+func (this O) String() string {
 	return _string(this)
 }
