@@ -4,6 +4,7 @@ import (
 	"testing"
 	"bytes"
 	"strings"
+	"github.com/NeowayLabs/logger"
 )
 
 func Test_create_empty_object(t *testing.T) {
@@ -77,9 +78,21 @@ func Test_get_object_with_casting_error(t *testing.T) {
 func Test_get_object_without_casting_error(t *testing.T) {
 	obj := Object().Put("owner", Object().Put("nome", "Ricardo Longa"))
 
-	if _, err := obj.GetObject("owner"); err != nil {
-		t.Errorf("Casting error not expected.")
+	_, err := obj.GetObject("owner")
+	if err != nil {
+		t.Errorf("1Casting error not expected.")
 	}
+
+	obj = Object().Put("owner", map[string]interface{}{
+		"nome":"Ricardo Longa",
+	})
+
+	obj, err = obj.GetObject("owner")
+	if err != nil {
+		t.Errorf("2Casting error not expected.")
+	}
+
+	logger.Info("Teste: ", obj.Get("nome"))
 }
 
 func Test_get_array_without_casting_error(t *testing.T) {

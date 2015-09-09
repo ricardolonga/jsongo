@@ -22,13 +22,20 @@ func (this O) Get(key string) interface{} {
 }
 
 func (this O) GetObject(key string) (value O, err error) {
-	var ok bool
+	switch this[key].(type) {
+	case map[string]interface{}:
+		object := Object()
 
-	if value, ok = this[key].(O); !ok {
-		return nil, errors.New(fmt.Sprintf("Casting error. Interface is %s, not jsongo.object", reflect.TypeOf(this[key])))
+		for k,v := range this[key].(map[string]interface{}) {
+			object.Put(k,v)
+		}
+
+		return object, nil
+	case O:
+		return this[key].(O), nil
 	}
 
-	return value, nil
+	return nil, errors.New(fmt.Sprintf("Casting error. Interface is %s, not jsongo.object", reflect.TypeOf(this[key])))
 }
 
 func (this O) GetArray(key string) (newArray *A, err error) {
