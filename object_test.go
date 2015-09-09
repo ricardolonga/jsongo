@@ -2,9 +2,6 @@ package jsongo
 
 import (
 	"testing"
-	"encoding/json"
-	"reflect"
-	"log"
 	"bytes"
 	"strings"
 )
@@ -69,32 +66,34 @@ func Test_object_string(t *testing.T) {
 	}
 }
 
-func bytes2json(data []byte) map[string]interface{} {
-	var jsonData interface{}
+func Test_get_object_with_casting_error(t *testing.T) {
+	obj := Object().Put("skills", Array().Put("Golang").Put("Android").Put("Java"))
 
-	err := json.Unmarshal(data, &jsonData)
-
-	if err != nil {
-		log.Printf("Erro: %s", err)
-		return nil
+	if _, err := obj.GetObject("skills"); err == nil {
+		t.Errorf("Casting error not found.")
 	}
-
-	return jsonData.(map[string]interface{})
 }
 
-func struct2json(data interface{}) string {
-	byteArray, err := json.Marshal(data)
+func Test_get_object_without_casting_error(t *testing.T) {
+	obj := Object().Put("owner", Object().Put("nome", "Ricardo Longa"))
 
-	if err != nil {
-		log.Printf("Erro: %s", err)
-		return ""
+	if _, err := obj.GetObject("owner"); err != nil {
+		t.Errorf("Casting error not expected.")
 	}
-
-	return string(byteArray)
 }
 
-func check(t *testing.T, expect, result interface{}) {
-	if !reflect.DeepEqual(expect, result) {
-		t.Errorf("\n\nExpect: %s\nResult: %s", expect, result)
+func Test_get_array_without_casting_error(t *testing.T) {
+	obj := Object().Put("skills", Array().Put("Golang").Put("Android").Put("Java"))
+
+	if _, err := obj.GetArray("skills"); err != nil {
+		t.Errorf("Error not expected: %s.", err)
+	}
+}
+
+func Test_get_array_with_casting_error(t *testing.T) {
+	obj := Object().Put("owner", Object().Put("nome", "Ricardo Longa"))
+
+	if _, err := obj.GetArray("owner"); err == nil {
+		t.Errorf("Casting error not found.")
 	}
 }
