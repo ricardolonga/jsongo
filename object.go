@@ -31,14 +31,31 @@ func (this O) GetObject(key string) (value O, err error) {
 	return value, nil
 }
 
-func (this O) GetArray(key string) (value *A, err error) {
-	var ok bool
+func (this O) GetArray(key string) (newArray *A, err error) {
+	newArray = Array()
 
-	if value, ok = this[key].(*A); !ok {
-		return nil, errors.New(fmt.Sprintf("Casting error. Interface is %s, not jsongo.array", reflect.TypeOf(this[key])))
+	switch this[key].(type) {
+	case []interface{}:
+		values := this[key].([]interface{})
+
+		for _, value := range values {
+			newArray.Put(value)
+		}
+
+		return newArray, nil
+	case []string:
+		values := this[key].([]string)
+
+		for _, value := range values {
+			newArray.Put(value)
+		}
+
+		return newArray, nil
+	case *A:
+		return this[key].(*A), nil
 	}
 
-	return value, nil
+	return nil, errors.New(fmt.Sprintf("Casting error. Interface is %s, not jsongo.A or []interface{}", reflect.TypeOf(this[key])))
 }
 
 func (this O) Remove(key string) O {

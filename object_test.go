@@ -85,8 +85,35 @@ func Test_get_object_without_casting_error(t *testing.T) {
 func Test_get_array_without_casting_error(t *testing.T) {
 	obj := Object().Put("skills", Array().Put("Golang").Put("Android").Put("Java"))
 
-	if _, err := obj.GetArray("skills"); err != nil {
+	values, err := obj.GetArray("skills")
+	if err != nil {
 		t.Errorf("Error not expected: %s.", err)
+	}
+
+	if len(*values) != 3 {
+		t.Error("Expected 3 values.")
+	}
+
+	obj = Object().Put("skills", []interface{}{"Golang", "Android", "Java"})
+
+	values, err = obj.GetArray("skills")
+	if err != nil {
+		t.Errorf("Error not expected: %s.", err)
+	}
+
+	if len(*values) != 3 {
+		t.Error("Expected 3 values.")
+	}
+
+	obj = Object().Put("skills", []string{"Golang", "Android", "Java"})
+
+	values, err = obj.GetArray("skills")
+	if err != nil {
+		t.Errorf("Error not expected: %s.", err)
+	}
+
+	if len(*values) != 3 {
+		t.Error("Expected 3 values.")
 	}
 }
 
