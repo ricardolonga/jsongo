@@ -9,14 +9,17 @@ Jsongo
 
 Install
 -------------
-```
+
+```sh
 go get github.com/ricardolonga/jsongo
 ```
 
 Usage
 -------------
+
 To create this:  
-```
+
+```json
 {  
     "name":"Ricardo Longa",
     "idade":28,
@@ -26,47 +29,66 @@ To create this:
         "Android"
     ]
 }
-```  
-Do this:  
 ```
+
+Do this:  
+
+```go
 import (
     j "github.com/ricardolonga/jsongo"
 )
 
-json := j.Object().Put("name", "Ricardo Longa").
-				   Put("idade", 28).
-				   Put("owner", true).
-				   Put("skills", j.Array().Put("Golang").
-									       Put("Android"))
+json := j.Object().
+		Put("name", "Ricardo Longa").
+		Put("idade", 28).
+		Put("owner", true).
+		Put(
+			"skills",
+			j.Array().
+				Put("Golang").
+				Put("Android"),
+		)
 
 log.Println(json.Indent())
 log.Println(json.String())
 ```
+
 ##### Convert object/array to indented String:
-```
+
+```go
 json.Indent()
 ```
+
 ##### Convert object/array to String:
-```
+
+```go
 json.String()
 ```
+
 ##### To remove a field of the object:
-```
+
+```go
 json.Remove("skills")
 ```
+
 ##### To get a field of the object:
-```
+
+```go
 json.Get("skills") // Return is interface{}.
 ```
+
 ##### To range over a array:
-```
+
+```go
 results := Array().Put("Golang").Put("Android").Put("Java")
 
 for i, result := range results.Array() {
 }
 ```
+
 ##### To get Array size:
-```
+
+```go
 array := j.Array().Put("Android").
                    Put("Golang").
                    Put("Java")
